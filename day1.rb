@@ -2,18 +2,16 @@ file = File.open("input1_1.txt")
 @readings = file.readlines.map(&:to_i)
 file.close
 
-def groups(size = 1)
-  @readings.each_cons(size).map(&:sum)
-end
+def count_deeper(data, group_size = 1)
+  groups = data.each_cons(group_size).map(&:sum)
 
-def count_deeper(group_size = 1)
-  groups(group_size).each_cons(2).count do |previous, current|
+  groups.each_cons(2).count do |previous, current|
     current > previous
   end
 end
 
-part1 = count_deeper
-part2 = count_deeper(3)
+part1 = count_deeper(@readings)
+part2 = count_deeper(@readings, 3)
 puts [part1, part2]
 
 #(maud:)test for future reference
