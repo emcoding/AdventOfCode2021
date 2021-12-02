@@ -1,20 +1,24 @@
 file = File.open("input1_1.txt")
-readings = file.readlines.map(&:to_i)
+@readings = file.readlines.map(&:to_i)
 file.close
 
-def count_diff_increasing(data)
+def count_deeper(data)
   data.each_cons(2).count do |previous, current|
     current > previous
   end
 end
 
-def count_moving_increasing(data, group_size=3)
-  groups = data.each_cons(group_size).map(&:sum)
-  count_diff_increasing(groups)
+def count_deeper_trios
+  count_deeper(tri_days)
 end
 
-part1 = count_diff_increasing(readings)
-part2 = count_moving_increasing(readings)
+def tri_days
+  @readings.each_cons(3).map(&:sum)
+end
+
+
+part1 = count_deeper(@readings)
+part2 = count_deeper_trios
 puts [part1, part2]
 
 #(maud:)test for future reference
